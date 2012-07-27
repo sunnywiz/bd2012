@@ -1,0 +1,22 @@
+﻿@model BD2012.Models.BurndownViewModel
+@{
+    ViewBag.Title = "Burndown";
+}
+
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Low</th>
+        <th>High</th>
+        <th>Left</th>
+        <th>Actual</th>
+    </tr>
+    @foreach (var item in Model.Rows)
+    {
+        <tr>
+            <td>
+                <div class="bd-item" style="padding-left: @(item.PixelIndent)px">@item.Name</div>
+            </td>   
+        </tr>
+    }
+</table>
