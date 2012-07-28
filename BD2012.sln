@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD2012", "BD2012\BD2012.csproj", "{E2E48637-9670-4E43-95A0-6BA28FDB4AFC}"
 EndProject
 Global
