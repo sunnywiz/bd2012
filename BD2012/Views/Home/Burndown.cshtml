@@ -11,12 +11,27 @@
         <th>Left</th>
         <th>Actual</th>
     </tr>
-    @foreach (var item in Model.Rows)
+    @for(int i=0; i<Model.Rows.Count; i++)  
     {
+        var item = Model.Rows[i];
         <tr>
             <td>
                 <div class="bd-item" style="padding-left: @(item.PixelIndent)px">@item.Name</div>
-            </td>   
+            </td>
+            @if (item.IsCalculated)
+            {
+                <td><em>@item.Low</em></td>
+                <td><em>@item.High</em></td>
+                <td><em>@item.Left</em></td>
+                <td><em>@item.Actual</em></td>
+            } else { 
+            <td>@item.Low</td>
+            <td>@item.High</td>
+            <td>
+                @Html.TextBoxFor(x=>x.Rows[i].Left)
+            </td>
+            <td>@item.Actual</td>
+            }
         </tr>
     }
 </table>

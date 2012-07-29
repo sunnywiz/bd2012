@@ -12,7 +12,6 @@ namespace BD2012.Models
 
         public List<RowViewModel> RootRows { get; set; }
 
-
         public BurndownViewModel CopyFrom(Burndown bd)
         {
             Rows = new List<RowViewModel>(); 
@@ -57,6 +56,38 @@ namespace BD2012.Models
                     }
                 }
             }
+
+            foreach (var v in bd.Values.Where(v=>v.When == null))
+            {
+                var vm = dictRvm[v.LineItemId];
+                vm.CopyFrom(v.Snapshot); 
+            }
+
+            Rows = Rows.OrderBy(x => x.Hierarchy).ToList();  // top down order
+            for (int i = Rows.Count - 1; i >= 0; i--)
+            {
+                var parent = Rows[i].Parent;
+
+                if (parent != null)
+                {
+                    var child = Rows[i];
+                    if (parent.IsCalculated || 
+                        (!parent.High.HasValue && 
+                        !parent.Low.HasValue 
+                        && !parent.Left.HasValue 
+                        && !parent.Actual.HasValue))
+                    {
+                        parent.IsCalculated = true;
+                        if (child.High.HasValue)
+                        {
+                            var high = parent.High ?? 0m;
+                            high += child.High.Value;
+                            parent.High = high;
+                        }
+                    }
+                }
+            }
+
             return this; 
         }
     }
@@ -78,6 +109,8 @@ namespace BD2012.Models
         public decimal? Left { get; set; }
         public decimal? Actual { get; set; }
 
+        public bool IsCalculated { get; set; }
+
         public List<RowViewModel> Children { get; set; }
         public RowViewModel Parent { get; set; }
 
@@ -92,6 +125,8 @@ namespace BD2012.Models
         {
             Low = snapshot.Low;
             High = snapshot.High;
+            Left = snapshot.EstLeft;
+            Actual = snapshot.ActualSpent;
             return this;  
         }
     }
