@@ -12,7 +12,7 @@ namespace BD2012.Models
 
         public List<RowViewModel> RootRows { get; set; }
 
-        public BurndownViewModel CopyFrom(Burndown bd)
+/*        public BurndownViewModel CopyFrom(BurndownDB bd)
         {
             Rows = new List<RowViewModel>(); 
             RootRows = new List<RowViewModel>(); 
@@ -20,7 +20,7 @@ namespace BD2012.Models
             var dictOrig = new Dictionary<int, LineItem>();
             var dictRvm = new Dictionary<int, RowViewModel>(); 
 
-            foreach (var row in bd.Rows)
+            foreach (var row in bd.LineItems)
             {
                 var rvm = new RowViewModel().CopyFrom(row);
                 
@@ -32,8 +32,8 @@ namespace BD2012.Models
                 } else { 
                     unassigned.Add(rvm); 
                 }
-                dictRvm[row.Id] = rvm;
-                dictOrig[row.Id] = row; 
+                dictRvm[row.LineItemId] = rvm;
+                dictOrig[row.LineItemId] = row; 
             }
 
             while (unassigned.Count > 0)
@@ -43,7 +43,7 @@ namespace BD2012.Models
                     var iggy = unassigned[i];
                     var orig = dictOrig[iggy.LineItemId];
                     var origParent = orig.Parent; 
-                    var iggyparent = dictRvm[origParent.Id];
+                    var iggyparent = dictRvm[origParent.LineItemId];
 
                     if (iggyparent.Hierarchy != null)
                     {
@@ -57,7 +57,7 @@ namespace BD2012.Models
                 }
             }
 
-            foreach (var v in bd.Values.Where(v=>v.When == null))
+            foreach (var v in bd.DataPoints.Where(v=>v.When == null))
             {
                 var vm = dictRvm[v.LineItemId];
                 vm.CopyFrom(v.Snapshot); 
@@ -89,9 +89,9 @@ namespace BD2012.Models
             }
 
             return this; 
-        }
+        }*/
     }
-
+        
     public class RowViewModel
     {
         public RowViewModel()
@@ -116,19 +116,11 @@ namespace BD2012.Models
 
         public RowViewModel CopyFrom(LineItem item)
         {
-            LineItemId = item.Id; 
+            LineItemId = item.LineItemId; 
             Name = item.Name;
             return this;
         }
 
-        public RowViewModel CopyFrom(Snapshot snapshot)
-        {
-            Low = snapshot.Low;
-            High = snapshot.High;
-            Left = snapshot.EstLeft;
-            Actual = snapshot.ActualSpent;
-            return this;  
-        }
     }
 
 
