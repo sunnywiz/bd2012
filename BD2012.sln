@@ -5,12 +5,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD2012", "BD2012\BD2012.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bd2012.data", "bd2012.data\bd2012.data.csproj", "{8D5F7918-765F-4D73-8B9C-65D00136F623}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD2012.seed", "BD2012.seed\BD2012.seed.csproj", "{59113981-D5E2-44E6-B223-4F7BBE2BFB66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59113981-D5E2-44E6-B223-4F7BBE2BFB66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59113981-D5E2-44E6-B223-4F7BBE2BFB66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59113981-D5E2-44E6-B223-4F7BBE2BFB66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59113981-D5E2-44E6-B223-4F7BBE2BFB66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8D5F7918-765F-4D73-8B9C-65D00136F623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8D5F7918-765F-4D73-8B9C-65D00136F623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D5F7918-765F-4D73-8B9C-65D00136F623}.Release|Any CPU.ActiveCfg = Release|Any CPU

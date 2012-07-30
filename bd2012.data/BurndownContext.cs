@@ -6,10 +6,6 @@ namespace bd2012.data
 {
     public class BurndownContext : DbContext 
     {
-        public BurndownContext() : base("BurndownCEDatabase")
-        {
-            
-        }
         public DbSet<Project> Projects { get; set; }
         public DbSet<ColumnDefinition> ColumnDefinitions { get; set; }
     }
