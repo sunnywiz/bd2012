@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BD2012.Code;
+using bd2012.data;
 
 namespace BD2012.Controllers
 { 

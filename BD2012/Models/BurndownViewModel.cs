@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using BD2012.Code;
+using bd2012.data;
 
 namespace BD2012.Models
 {

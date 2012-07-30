@@ -72,7 +72,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\BurndownContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -178,6 +177,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Project\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Code\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bd2012.data\bd2012.data.csproj">
+      <Project>{8d5f7918-765f-4d73-8b9c-65d00136f623}</Project>
+      <Name>bd2012.data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
