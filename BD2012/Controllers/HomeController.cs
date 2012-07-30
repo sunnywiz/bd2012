@@ -12,8 +12,7 @@ namespace BD2012.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
-
+            ViewBag.Message = "Burndown v2012";
             return View();
         }
 

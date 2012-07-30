@@ -72,7 +72,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\Burndown.cs" />
+    <Compile Include="Code\BurndownContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -81,7 +81,6 @@
     </Compile>
     <Compile Include="Models\BurndownViewModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
-    <Compile Include="Code\LineItem.cs" />
     <Compile Include="Models\LogOnModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,7 +90,6 @@
     <Content Include="App_Data\aspnetdb_log.ldf">
       <DependentUpon>ASPNETDB.MDF</DependentUpon>
     </Content>
-    <Content Include="App_Data\Burndown.sdf" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -160,7 +158,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

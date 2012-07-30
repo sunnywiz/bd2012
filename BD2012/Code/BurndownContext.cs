@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace BD2012.Code
 {
@@ -9,11 +10,10 @@ namespace BD2012.Code
     {
         public BurndownContext() : base("BurndownCEDatabase")
         {
-
+            
         }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<LineItem> LineItems { get; set; }
-        public DbSet<ColumnDefinition> ColumnDefinitions { get; set; } 
+        public DbSet<ColumnDefinition> ColumnDefinitions { get; set; }
     }
 
     public class LineItem
@@ -44,10 +44,10 @@ namespace BD2012.Code
 
     public class ColumnDefinition
     {
-        public virtual Project Project { get; set; } 
         public int ColumnDefinitionId { get; set; }
         public string ColumnName { get; set; }
         public int Order { get; set; } 
-        public bool IsImmediateEntry { get; set; } 
+        public bool IsImmediateEntry { get; set; }
+        public virtual Project Project { get; set; }
     }
 }
