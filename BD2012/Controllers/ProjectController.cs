@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using bd2012.data;
+using BD2012.Models;
 
 namespace BD2012.Controllers
 { 
@@ -103,6 +104,17 @@ namespace BD2012.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        // 
+        // GET: /Project/Burndown/5
+        public ActionResult Burndown(int id)
+        {
+            Project project = db.Projects.Find(id);
+            var lineitem = project.LineItems.FirstOrDefault(); 
+            var vm = new RowViewModel();
+            if (lineitem != null) vm.CopyFrom(lineitem); 
+            return View("Burndown", vm); 
         }
     }
 }

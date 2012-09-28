@@ -78,7 +78,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BurndownViewModel.cs" />
+    <Compile Include="Models\RowViewModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\LogOnModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -161,7 +161,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Burndown.cshtml" />
+    <Content Include="Views\Project\Burndown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Project\Index.cshtml" />

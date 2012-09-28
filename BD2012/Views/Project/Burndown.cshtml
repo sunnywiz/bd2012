@@ -1,4 +1,4 @@
-﻿@model BD2012.Models.BurndownViewModel
+﻿@model BD2012.Models.RowViewModel
 @{
     ViewBag.Title = "Burndown";
 }
@@ -11,9 +11,9 @@
         <th>Left</th>
         <th>Actual</th>
     </tr>
-    @for(int i=0; i<Model.Rows.Count; i++)  
+    @for(int i=0; i<Model.Children.Count; i++)  
     {
-        var item = Model.Rows[i];
+        var item = Model.Children[i];
         <tr>
             <td>
                 <div class="bd-item" style="padding-left: @(item.PixelIndent)px">@item.Name</div>
@@ -28,7 +28,7 @@
             <td>@item.Low</td>
             <td>@item.High</td>
             <td>
-                @Html.TextBoxFor(x=>x.Rows[i].Left)
+                @Html.TextBoxFor(x=>x.Children[i].Left)
             </td>
             <td>@item.Actual</td>
             }
