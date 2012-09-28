@@ -7,33 +7,81 @@ using System;
 
 namespace BD2012.Models
 {
-    public class RowViewModel
+    public class BurndownViewModel
     {
-        public RowViewModel()
+        public BurndownViewModel()
         {
-            Children = new List<RowViewModel>();
+            AllRows = new List<RowItem>();
+            HierarchicalRows = new List<RowItem>(); 
         }
 
-        public string Hierarchy { get; set; } 
-        public int LineItemId { get; set;  }
-        public string Name { get; set;  }
-        public int PixelIndent { get; set;  }
+        public string Name { get; set; }
+        public List<RowItem> HierarchicalRows { get; private set; } 
+        public List<RowItem> AllRows { get; private set; } 
 
-        public decimal? Low { get; set; }
-        public decimal? High { get; set; }
-        public decimal? Left { get; set; }
-        public decimal? Actual { get; set; }
-
-        public bool IsCalculated { get; set; }
-
-        public List<RowViewModel> Children { get; set; }
-        public RowViewModel Parent { get; set; }
-
-        public RowViewModel CopyFrom(LineItem item)
+        public BurndownViewModel CopyFrom(Project project)
         {
-            throw new NotImplementedException("Left off here - need to construct a view based on data in a project "); 
+            Name = project.ProjectName;
+
+            var parentItems = new List<LineItem>();
+            var childItems = new List<LineItem>();
+            foreach (var item in project.LineItems)
+            {
+                if (item.Parent == null)
+                {
+                    parentItems.Add(item);
+                }
+                else
+                {
+                    childItems.Add(item);
+                }
+            }
+
+            Dictionary<int, RowItem> dict = new Dictionary<int, RowItem>();
+            HierarchicalRows = new List<RowItem>(); 
+            foreach (var item in parentItems)
+            {
+                var rowItem = new RowItem().CopyFrom(item);
+                HierarchicalRows.Add(rowItem);
+                dict.Add(rowItem.Id, rowItem);
+                rowItem.Indent = 0; 
+            }
+
+            var lastCount = childItems.Count + 1;
+            while (childItems.Count > 0 && childItems.Count < lastCount)
+            {
+                for (int i = 0; i < childItems.Count; i++)
+                {
+                    var item = childItems[i];
+                    // find parent 
+                    if (dict.ContainsKey(item.Parent.LineItemId))
+                    {
+                        var parentRow = dict[item.Parent.LineItemId];
+                        var newchild = new RowItem().CopyFrom(item);
+                        RowItem.LinkParentAndChild(parentRow, newchild);
+                        newchild.Indent = parentRow.Indent + 1;
+                        childItems.RemoveAt(i);
+                    }
+                }
+                lastCount = childItems.Count;
+            }
+
+            AllRows = new List<RowItem>();
+            RecurseAppend(HierarchicalRows, AllRows); 
+
+            return this; 
         }
 
-
+        private void RecurseAppend(List<RowItem> HierarchicalRows, List<RowItem> AllRows)
+        {
+            foreach (var item in HierarchicalRows)
+            {
+                AllRows.Add(item);
+                if (item.Children.Count > 0)
+                {
+                    RecurseAppend(item.Children, AllRows);
+                }
+            }
+        }
     }
 }

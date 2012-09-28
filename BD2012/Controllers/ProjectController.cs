@@ -111,9 +111,7 @@ namespace BD2012.Controllers
         public ActionResult Burndown(int id)
         {
             Project project = db.Projects.Find(id);
-            var lineitem = project.LineItems.FirstOrDefault(); 
-            var vm = new RowViewModel();
-            if (lineitem != null) vm.CopyFrom(lineitem); 
+            var vm = new BurndownViewModel().CopyFrom(project);
             return View("Burndown", vm); 
         }
     }
