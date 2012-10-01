@@ -11,17 +11,20 @@ namespace BD2012.Models
         public RowItem()
         {
             Children = new List<RowItem>();
+            Data = new Dictionary<string, decimal>(); 
         }
         public string Name { get; set; }
         public int Id { get; set; }
         public int Indent { get; set; }
         public List<RowItem> Children { get; private set; }
         public RowItem Parent { get; set; }
+        public Dictionary<string, decimal> Data { get; set; }
 
         public RowItem CopyFrom(LineItem item)
         {
             Name = item.Name;
             Id = item.LineItemId; 
+
             return this;
         }
 

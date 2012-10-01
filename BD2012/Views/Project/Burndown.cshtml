@@ -8,7 +8,12 @@
 <table>
     <tr>
         <th colspan="1">Item</th>
-        <th>Numbers, Yo.</th>
+        @foreach (var col in Model.Columns)
+        {
+            <th>
+                @col
+            </th>
+        }
     </tr>
     @foreach (var item in Model.AllRows)
     {
@@ -18,7 +23,28 @@
                     @item.Name
                 </span>
             </td>
-            <td> NEXT -- stick numbers in here</td>
+            @foreach (var col in Model.Columns)
+            {
+                if (item.Data.ContainsKey(col))
+                { 
+                <td>
+                    @item.Data[col]
+                </td>
+                }
+                else
+                {
+                    <td />
+                }
+            }
         </tr>
     }
 </table>
+TODO: 
+<ul>
+    <li>A. should calculate all calculatable things (sums) when rendering this view</li>
+    <li>B. if the thing is an immediately updateable thing, render as a textbox</li>
+    <li>B-C. save to update values (saves with current timestamp)</li>
+    <li>B-C-D. with some history built up, should allow show graph over time.</li>
+    <li>E. ability to configure project - adding columns, edit column, delete column</li>
+    <li>F. ability to delete</li>
+</ul>
