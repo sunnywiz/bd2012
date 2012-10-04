@@ -20,6 +20,10 @@ namespace BD2012.Models
         public RowItem Parent { get; set; }
         public Dictionary<string, decimal> Data { get; set; }
 
+        // for now, leaves are editable and above that are not.  That might change later
+        // with locked thingies and stuff. 
+        public bool IsEditable { get; set; } 
+
         public RowItem CopyFrom(LineItem item)
         {
             Name = item.Name;
