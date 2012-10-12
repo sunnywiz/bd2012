@@ -1,14 +1,17 @@
 ﻿@model BD2012.Models.BurndownViewModel
+@using BD2012.Models
 @{
     ViewBag.Title = "Burndown";
 }
 
 <h1>@Model.Name</h1>
 
+@using(var form = Html.BeginForm("update","Burndown") {
+
 <table>
     <tr>
         <th colspan="1">Item</th>
-        @foreach (var col in Model.Columns)
+        @foreach (var col in Model.ColumnNames)
         {
             <th>
                 @col
@@ -23,46 +26,61 @@
                     @item.Name
                 </span>
             </td>
-            @foreach (var col in Model.Columns)
+            @foreach (var col in Model.ColumnNames)
             {
-                if (item.IsEditable)
+                CellViewModel cvm = null;
+                if (item.Cells.TryGetValue(col, out cvm))
                 {
-                    string inputName = String.Format("d{0}c{1}", item.Id, col);
-                    if (item.Data.ContainsKey(col))
-                    { 
-                <td>@Html.TextBox(inputName, item.Data[col].ToString())</td>
-                    }
-                    else
-                    { 
+                    if (cvm.IsEditable)
+                    {
+                        string inputName = String.Format("d{0}c{1}", item.Id, col);
+                        if (item.Cells.ContainsKey(col))
+                        { 
+                <td>@Html.TextBox(inputName, item.Cells[col].Value.ToString())</td>
+                        }
+                        else
+                        { 
                 <td>@Html.TextBox(inputName, "")</td>
-                    }
-                }
-                else
-                {
-                    if (item.Data.ContainsKey(col))
-                    { 
-                <td>
-                    @item.Data[col]
-                </td>
+                        }
                     }
                     else
                     {
+                        if (item.Cells.ContainsKey(col))
+                        { 
+                <td>
+                    @item.Cells[col].Value
+                </td>
+                        }
+                        else
+                        {
                 <td />
+                        }
                     }
                 }
             }
         </tr>
     }
 </table>
+}
 TODO: 
 <ul>
     <li>[DONE] A. should calculate all calculatable things (sums) when rendering this view</li>
-    <li>B. if the thing is an immediately updateable thing, render as a textbox
+    <li>[DONE] B. if the thing is an immediately updateable thing, render as a textbox
         <ul>
-            <li>need to update logic so that "immediate entry" is honored (don't show as editable unless column is defined as immediate entry)</li>
+            <li>[DONE] need to update logic so that "immediate entry" is honored (don't show as editable unless column is defined as immediate entry)</li>
         </ul>
     </li>
-    <li>B-C. save to update values (saves with current timestamp)</li>
+    <li>[] B-C. save to update values (saves with current timestamp)
+        <ul>
+            <li>Initially, just update the current value
+            
+            </li>
+            <li>Then, switch so that a new timestamp entry is written
+
+            </li>
+            <li>That means that the new timestamp entries have to be considered when drawing the page. </li>
+        </ul>
+    </li>
     <li>B-C-D. with some history built up, should allow show graph over time.</li>
     <li>E. ability to configure project - adding columns, edit column, delete column</li>
     <li>F. ability to delete</li>
