@@ -6,61 +6,63 @@
 
 <h1>@Model.Name</h1>
 
-@using(var form = Html.BeginForm("update","Burndown") {
+@using(var form = Html.BeginForm("Burndown","Project")) {
 
-<table>
-    <tr>
-        <th colspan="1">Item</th>
-        @foreach (var col in Model.ColumnNames)
-        {
-            <th>
-                @col
-            </th>
-        }
-    </tr>
-    @foreach (var item in Model.AllRows)
-    {
+    <table>
         <tr>
-            <td>
-                <span style="margin-left: @(item.Indent * 20)px">
-                    @item.Name
-                </span>
-            </td>
+            <th colspan="1">Item</th>
             @foreach (var col in Model.ColumnNames)
             {
-                CellViewModel cvm = null;
-                if (item.Cells.TryGetValue(col, out cvm))
-                {
-                    if (cvm.IsEditable)
-                    {
-                        string inputName = String.Format("d{0}c{1}", item.Id, col);
-                        if (item.Cells.ContainsKey(col))
-                        { 
-                <td>@Html.TextBox(inputName, item.Cells[col].Value.ToString())</td>
-                        }
-                        else
-                        { 
-                <td>@Html.TextBox(inputName, "")</td>
-                        }
-                    }
-                    else
-                    {
-                        if (item.Cells.ContainsKey(col))
-                        { 
+                <th>
+                    @col
+                </th>
+            }
+        </tr>
+        @foreach (var item in Model.AllRows)
+        {
+            <tr>
                 <td>
-                    @item.Cells[col].Value
+                    <span style="margin-left: @(item.Indent * 20)px">
+                        @item.Name
+                    </span>
                 </td>
+                @foreach (var col in Model.ColumnNames)
+                {
+                    CellViewModel cvm = null;
+                    if (item.Cells.TryGetValue(col, out cvm))
+                    {
+                        if (cvm.IsEditable)
+                        {
+                            string inputName = String.Format("d{0}c{1}", item.Id, col);
+                            if (item.Cells.ContainsKey(col))
+                            { 
+                                <td>@Html.TextBox(inputName, item.Cells[col].Value.ToString())</td>
+                            }
+                            else
+                            { 
+                                <td>@Html.TextBox(inputName, "")</td>
+                            }
                         }
                         else
                         {
-                <td />
+                            if (item.Cells.ContainsKey(col))
+                            { 
+                                <td>
+                                    @item.Cells[col].Value
+                                </td>
+                            }
+                            else
+                            {
+                                <td />
+                            }
                         }
                     }
                 }
-            }
-        </tr>
-    }
-</table>
+            </tr>
+        }
+    </table>
+
+<input type="submit"/>    
 }
 TODO: 
 <ul>

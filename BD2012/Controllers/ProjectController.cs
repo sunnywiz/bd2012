@@ -114,5 +114,11 @@ namespace BD2012.Controllers
             var vm = new BurndownViewModel().CopyFrom(project);
             return View("Burndown", vm); 
         }
+
+        [HttpPost]
+        public ActionResult Burndown(BurndownViewModel model)
+        {
+            return View("Burndown", model);
+        }
     }
 }
