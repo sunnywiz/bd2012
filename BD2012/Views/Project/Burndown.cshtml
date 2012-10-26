@@ -7,8 +7,9 @@
 <h1>@Model.Name</h1>
 
 
-@using(var form = Html.BeginForm("Burndown","Project")) {
-@Html.HiddenFor(m=>m.ProjectId)
+@using (var form = Html.BeginForm("Burndown", "Project"))
+{
+    @Html.HiddenFor(m => m.ProjectId)
 
     <table>
         <tr>
@@ -38,24 +39,24 @@
                             string inputName = String.Format("update-{0}-{1}", item.Id, col);
                             if (item.Cells.ContainsKey(col))
                             { 
-                                <td>@Html.TextBox(inputName, item.Cells[col].Value.ToString())</td>
+                    <td>@Html.TextBox(inputName, item.Cells[col].Value.ToString())</td>
                             }
                             else
                             { 
-                                <td>@Html.TextBox(inputName, "")</td>
+                    <td>@Html.TextBox(inputName, "")</td>
                             }
                         }
                         else
                         {
                             if (item.Cells.ContainsKey(col))
                             { 
-                                <td>
-                                    @item.Cells[col].Value
-                                </td>
+                    <td>
+                        @item.Cells[col].Value
+                    </td>
                             }
                             else
                             {
-                                <td />
+                    <td />
                             }
                         }
                     }
@@ -64,7 +65,7 @@
         }
     </table>
 
-<input type="submit"/>    
+    <input type="submit" />    
 }
 TODO: 
 <ul>
@@ -76,10 +77,18 @@ TODO:
     </li>
     <li>[] B-C. save to update values (saves with current timestamp)
         <ul>
-            <li>Initially, just update the current value
+            <li>[DONE] Initially, just update the current value
             </li>
             <li>Then, switch so that a new timestamp entry is written
-
+                <ul>
+                    <li>REFACTOR HERE.   We need some new layers: </li>
+                    <li>the raw data returned from the database is one
+                    </li>
+                    <li>the "interpretted" version which sums up stuff and displays the numbers as of a particular time is another</li>
+                    <li>then the baseviewmodel which is the dto of what is shown on the screen</li>
+                    <li>then the modifyviewmodel which is the additional stuff needed to draw the screen</li>
+                    <li>move the code for going from one thingy to the next into a helper class that does conversion</li>
+                </ul>
             </li>
             <li>That means that the new timestamp entries have to be considered when drawing the page. </li>
         </ul>
