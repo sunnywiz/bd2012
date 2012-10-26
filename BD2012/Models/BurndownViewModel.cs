@@ -18,6 +18,7 @@ namespace BD2012.Models
         }
 
         public string Name { get; set; }
+        public int ProjectId { get; set; }
         public List<RowViewModel> HierarchicalRows { get; private set; } 
         public List<RowViewModel> AllRows { get; private set; }
         public List<string> ColumnNames { get; private set; }
@@ -25,6 +26,7 @@ namespace BD2012.Models
 
         public BurndownViewModel CopyFrom(Project project)
         {
+            ProjectId = project.ProjectId; 
             Name = project.ProjectName;
 
             List<LineItem> parentItems;

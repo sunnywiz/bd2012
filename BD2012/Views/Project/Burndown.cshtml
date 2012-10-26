@@ -6,7 +6,9 @@
 
 <h1>@Model.Name</h1>
 
+
 @using(var form = Html.BeginForm("Burndown","Project")) {
+@Html.HiddenFor(m=>m.ProjectId)
 
     <table>
         <tr>
@@ -33,7 +35,7 @@
                     {
                         if (cvm.IsEditable)
                         {
-                            string inputName = String.Format("d{0}c{1}", item.Id, col);
+                            string inputName = String.Format("update-{0}-{1}", item.Id, col);
                             if (item.Cells.ContainsKey(col))
                             { 
                                 <td>@Html.TextBox(inputName, item.Cells[col].Value.ToString())</td>
@@ -75,7 +77,6 @@ TODO:
     <li>[] B-C. save to update values (saves with current timestamp)
         <ul>
             <li>Initially, just update the current value
-            
             </li>
             <li>Then, switch so that a new timestamp entry is written
 

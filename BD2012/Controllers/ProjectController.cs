@@ -118,7 +118,38 @@ namespace BD2012.Controllers
         [HttpPost]
         public ActionResult Burndown(BurndownViewModel model)
         {
-            return View("Burndown", model);
+            if (model.ProjectId == 0) throw new Exception("missing ProjectId");
+            Project project = db.Projects.Find(model.ProjectId); 
+            if (project==null) throw new Exception("Yo, project not found");
+
+            var keys = Request.Params.AllKeys;
+            for (int i = 0; i < keys.Length; i++)
+            {
+                if (!keys[i].StartsWith("update-")) continue;
+
+                string[] split = keys[i].Split('-');
+                if (split.Length != 3) continue;
+
+                int id = 0;
+                if (!int.TryParse(split[1], out id)) continue;
+
+                string colName = split[2];
+                if (String.IsNullOrEmpty(colName)) continue;
+
+                decimal newval = 0; 
+                if (!decimal.TryParse(Request.Params[keys[i]], out newval)) continue; 
+
+                var row = (from d in project.Data
+                           where d.Column.ColumnName == colName
+                                 && d.LineItem.LineItemId == id
+                           select d).FirstOrDefault(); 
+                if (row != null)
+                {
+                    row.Value = newval; 
+                }
+            }
+            db.SaveChanges();
+            return Burndown(model.ProjectId); 
         }
     }
 }
